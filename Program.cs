@@ -23,9 +23,9 @@ namespace SquirrelApp
             //    await mgr.UpdateApp();
             //}
 
-            using (var mgr = UpdateManager.GitHubUpdateManager("C:\\temp\\SquirrelApp\\Releases"))
+            using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/rboumaza/SquirrelApp"))
             {
-                await mgr.UpdateApp();
+                var release = await mgr.Result.UpdateApp();
             }
             Application.Run(new Form1());
         }
