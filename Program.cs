@@ -41,24 +41,23 @@ namespace SquirrelApp
                 {
                     if (mgr.Result.IsInstalledApp)
                     {
-                        MessageBox.Show($"Current Version: {mgr.Result.CurrentlyInstalledVersion()}");
+                        MessageBox.Show($"Version actuelle: {mgr.Result.CurrentlyInstalledVersion()}");
+                        //vérification des mises à jour
                         var updates = await mgr.Result.CheckForUpdate();
-                        if (updates.ReleasesToApply.Any())
+                       
+                        if (updates.ReleasesToApply.Any()) 
                         {
-                            MessageBox.Show("Updates found. Applying updates.");
+                            MessageBox.Show("Nouvelle mise à jour disponible");
                             var release = await mgr.Result.UpdateApp();
 
-                            //MessageBox.Show(CleanReleaseNotes(release.GetReleaseNotes(Path.Combine(mgr.RootAppDirectory, "packages"))),
-                            //$"Casual Meter Update - v{release.Version}");
-
-                            MessageBox.Show("Updates applied. Restarting app.");
-                            //UpdateManager.RestartApp();
+                            MessageBox.Show($"Mise à jour appliquée, nouvelle version ; {release.Version}");
+                           // UpdateManager.RestartApp();
                         }
                     }
                 }
             }
             catch (Exception e)
-            {   //log exception and move on
+            {   
                 MessageBox.Show(e.Message);
             }
         }
