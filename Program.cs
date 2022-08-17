@@ -51,7 +51,7 @@ namespace SquirrelApp
                             var release = await mgr.Result.UpdateApp();
 
                             MessageBox.Show($"Mise à jour appliquée, nouvelle version ; {release.Version}");
-                           // UpdateManager.RestartApp();
+                           UpdateManager.RestartApp();
                         }
                     }
                 }
