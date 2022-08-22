@@ -23,6 +23,6 @@ namespace SquirrelApp
             label3.Text = fvi.FileVersion;
         }
 
-        
+       
     }
 }

@@ -23,17 +23,14 @@ namespace SquirrelApp
             //    await mgr.UpdateApp();
             //}
 
-            //using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/rboumaza/SquirrelApp"))
-            //{
-            //    var release = await mgr.Result.UpdateApp();
-            //}
+            
 
-            await Update();
+            await CheckUpdate();
             Application.Run(new Form1());
         }
 
 
-        private static async Task Update()
+        private static async Task CheckUpdate()
         {
             try
             {
@@ -41,24 +38,20 @@ namespace SquirrelApp
                 {
                     if (mgr.Result.IsInstalledApp)
                     {
-                        MessageBox.Show($"Version actuelle: {mgr.Result.CurrentlyInstalledVersion()}");
                         //vérification des mises à jour
-                        var updates = await mgr.Result.CheckForUpdate();
-                       
+                        var updates = await mgr.Result.CheckForUpdate();                     
                         if (updates.ReleasesToApply.Any()) 
                         {
                             MessageBox.Show("Nouvelle mise à jour disponible");
                             var release = await mgr.Result.UpdateApp();
-
-                            MessageBox.Show($"Mise à jour appliquée, nouvelle version ; {release.Version}");
-                           UpdateManager.RestartApp();
+                            MessageBox.Show($"Mise à jour avec succés de la nouvelle version : {release.Version}");
                         }
                     }
                 }
             }
             catch (Exception e)
             {   
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Sources introuvables sur Git :" + e.Message);
             }
         }
     }
