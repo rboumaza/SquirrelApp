@@ -44,14 +44,14 @@ namespace SquirrelApp
                         {
                             MessageBox.Show("Nouvelle mise à jour disponible");
                             var release = await mgr.Result.UpdateApp();
-                            MessageBox.Show($"Mise à jour avec succés de la nouvelle version : {release.Version}");
+                            MessageBox.Show($"Mise à jour réalisée avec succés de la nouvelle version : {release.Version}");
                         }
                     }
                 }
             }
             catch (Exception e)
             {   
-                MessageBox.Show("Sources introuvables sur Git :" + e.Message);
+                MessageBox.Show("Sources introuvables sur le dépôt distant :" + e.Message);
             }
         }
     }
