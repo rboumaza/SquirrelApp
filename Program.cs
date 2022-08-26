@@ -18,14 +18,9 @@ namespace SquirrelApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //using( var mgr = new UpdateManager("C:\\temp\\SquirrelApp\\Releases"))
-            //{
-            //    await mgr.UpdateApp();
-            //}
-
-            
-
+            //mise à jour automatique
             await CheckUpdate();
+
             Application.Run(new Form1());
         }
 
@@ -34,15 +29,24 @@ namespace SquirrelApp
         {
             try
             {
+                //----------------Utilisation partage réseau-----------------------------------------------
+                //using( var mgr = new UpdateManager("C:\\temp\\SquirrelApp\\Releases"))
+                //{
+                //    await mgr.UpdateApp();
+                //}
+
+                //-------------Utilisation repo Internet ---------------------------------------------
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/rboumaza/SquirrelApp"))
                 {
                     if (mgr.Result.IsInstalledApp)
                     {
-                        //vérification des mises à jour
+                        //------------vérification des mises à jour
                         var updates = await mgr.Result.CheckForUpdate();                     
                         if (updates.ReleasesToApply.Any()) 
                         {
                             MessageBox.Show("Nouvelle mise à jour disponible");
+
+                            //--------Application mise à jour--------------
                             var release = await mgr.Result.UpdateApp();
                             MessageBox.Show($"Mise à jour réalisée avec succés de la nouvelle version : {release.Version}");
                         }
@@ -51,7 +55,7 @@ namespace SquirrelApp
             }
             catch (Exception e)
             {   
-                MessageBox.Show("Sources introuvables sur le dépôt distant :" + e.Message);
+                MessageBox.Show("Sources introuvables sur le dépôt distant. Détail Exception :" + e.Message);
             }
         }
     }
